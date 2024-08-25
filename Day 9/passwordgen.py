@@ -1,38 +1,33 @@
 import string
+import random
 
 req=[]
-lower=list(string.ascii_lowercase)
-upper=list(string.ascii_uppercase)
-digits=list(string.digits)
-special_char=list(string.punctuation)
+lower=string.ascii_lowercase
+upper=string.ascii_uppercase
+digits=string.digits
+special_char=string.punctuation
 
 print("Welcome to THE PASSWORD GENERATOR!!!")
 len=int(input("Enter the length for the passsword: "))
-for i in range(4):
-    low=input("Do you want lower case letters in your password (y/n): ")
-    if low=='y':
-        req.append(True)
-    else:
-        req.append(False) 
 
-    upp=input("Do you want upper case letters in your password (y/n): ")
-    if upp=='y':
-        req.append(True)
-    else:
-        req.append(False)
+low=input("Include lowercase letters? (y/n): ").lower()=='y'
+upp=input("Include uppercase letters? (y/n): ").lower()=='y'
+dig=input("Include digits? (y/n): ").lower()=='y'
+spl_chr=input("Include special characters? (y/n): ").lower()=='y'
 
-    digit=input("Do you want digits in your password (y/n): ")
-    if digit=='y':
-        req.append(True)
-    else:
-        req.append(False)
+char_pool=""
+if low:
+    char_pool+=lower
+if upp:
+    char_pool+=upper
+if dig:
+    char_pool+=digits
+if spl_chr:
+    char_pool+=special_char
 
-    spl_char=input("Do you want special characters in your password (y/n): ")
-    if spl_char=='y':
-        req.append(True)
-    else:
-        req.append(False)
-    break
+if not char_pool:
+    print("Select atleast one character set!")
+    exit()
 
-print(req[0])
-              
+password=''.join(random.choices(char_pool,k=len))
+print(f"Generated password: {password}")
