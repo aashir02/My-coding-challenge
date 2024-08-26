@@ -1,3 +1,8 @@
+"""
+Author: Aashir Aman Baik
+Description: This script implements a simple password generator.
+"""
+
 import string
 import random
 

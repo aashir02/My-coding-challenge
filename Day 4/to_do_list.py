@@ -1,3 +1,9 @@
+"""
+Author: Aashir Aman Baik
+Description: This script implements a command line to-do list program.
+"""
+
+
 tasks = []
 choice = 0
 

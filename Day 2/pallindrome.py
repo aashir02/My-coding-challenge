@@ -1,3 +1,8 @@
+"""
+Author: Aashir Aman Baik
+Description: This script implements a pallindrome checker.
+"""
+
 word=input("Enter string that needs to be checked: ")
 word_len=len(word)
 rev_string=word[::-1]

@@ -1,3 +1,8 @@
+"""
+Author: Aashir Aman Baik
+Description: This script implements a simple guessing game that prompts user to guess the corrct number randomly chosen by the computer.
+"""
+
 import random
 count=0
 
