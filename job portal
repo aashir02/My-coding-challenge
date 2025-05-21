@@ -1,0 +1,134 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class User {
+    String username;
+    String password;
+    
+    User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+}
+
+class Job {
+    String title;
+    String description;
+    String postedBy;
+    
+    Job(String title, String description, String postedBy) {
+        this.title = title;
+        this.description = description;
+        this.postedBy = postedBy;
+    }
+}
+
+public class JobPortal {
+    static ArrayList<User> users = new ArrayList<>();
+    static ArrayList<Job> jobs = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+    static User currentUser = null;
+
+    public static void main(String[] args) {
+        int choice;
+        do {
+            System.out.println("\n=== Job Portal Menu ===");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Post a Job");
+            System.out.println("4. View Jobs");
+            System.out.println("5. Logout");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+            
+            switch (choice) {
+                case 1:
+                    registerUser();
+                    break;
+                case 2:
+                    loginUser();
+                    break;
+                case 3:
+                    postJob();
+                    break;
+                case 4:
+                    viewJobs();
+                    break;
+                case 5:
+                    logoutUser();
+                    break;
+                case 6:
+                    System.out.println("Exiting Job Portal. Thank you!");
+                    break;
+                default:
+                    System.out.println("Invalid choice, try again.");
+            }
+        } while (choice != 6);
+    }
+
+    static void registerUser() {
+        System.out.print("Enter new username: ");
+        String username = sc.nextLine();
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+        users.add(new User(username, password));
+        System.out.println("User registered successfully!");
+    }
+
+    static void loginUser() {
+        if (currentUser != null) {
+            System.out.println("A user is already logged in. Logout first.");
+            return;
+        }
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+        for (User u : users) {
+            if (u.username.equals(username) && u.password.equals(password)) {
+                currentUser = u;
+                System.out.println("Login successful. Welcome " + currentUser.username + "!");
+                return;
+            }
+        }
+        System.out.println("Invalid credentials.");
+    }
+
+    static void postJob() {
+        if (currentUser == null) {
+            System.out.println("You must be logged in to post a job.");
+            return;
+        }
+        System.out.print("Enter job title: ");
+        String title = sc.nextLine();
+        System.out.print("Enter job description: ");
+        String description = sc.nextLine();
+        jobs.add(new Job(title, description, currentUser.username));
+        System.out.println("Job posted successfully!");
+    }
+
+    static void viewJobs() {
+        if (jobs.isEmpty()) {
+            System.out.println("No jobs available.");
+            return;
+        }
+        System.out.println("\nAvailable Jobs:");
+        for (Job j : jobs) {
+            System.out.println("Title: " + j.title);
+            System.out.println("Description: " + j.description);
+            System.out.println("Posted by: " + j.postedBy);
+            System.out.println("---------------------------");
+        }
+    }
+
+    static void logoutUser() {
+        if (currentUser == null) {
+            System.out.println("No user is currently logged in.");
+        } else {
+            System.out.println("User " + currentUser.username + " logged out.");
+            currentUser = null;
+        }
+    }
+}
